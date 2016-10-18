@@ -18,7 +18,15 @@
     <script src="../build/referral-tracker.js"></script>
     <script>
       $(document).ready(function() {
-        $('.referral-tracker').referralTracker({rewardLevels: [0,2,5,10,15]});
+        $('.referral-tracker').referralTracker({
+          rewardLevels: [0,2,5,10,15],
+          prizes: [
+            '<p>Some Prize 1</p>', 
+            '<p>Some Prize 2</p>', 
+            '<p>Some Prize 3</p>', 
+            '<p>Some Prize 4</p>', 
+            '<p>Some Prize 5</p>'
+          ]});
       });
     </script>
   </body>

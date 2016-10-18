@@ -62,24 +62,28 @@
 	    },
 	    
 	    setupTrackerData: function() {
-	      // Figure out number of reward levels
-	      // Determine bootstrap classes
-	      // Loop reward levels and append html
-	      // Setup a data object to easily access things
-	      //
 	      var rewardLevels = this.trackerOpts.rewardLevels,
+	          prizes = this.trackerOpts.prizes,
 	          rewardClass = this._rewardClass(rewardLevels.length),
+	          
 	          rewardHtml = this._buildCollection(RtDomBuilder.rewardLevel, rewardLevels, {
 	                          rewardClass: rewardClass,
-	                          rewardLevels: rewardLevels});
+	                          rewardLevels: rewardLevels}),
+	                          
+	          prizeHtml = this._buildCollection(RtDomBuilder.prize, prizes, {
+	            prizeClass: rewardClass,
+	            prizes: prizes
+	          });
 	      this.rewardLevelNodes = {
 	        html: rewardHtml,
 	        offsetClass: this._offsetClass(rewardLevels.length)
 	      };
+	      this.prizeNodes = {
+	        html: prizeHtml
+	      }
 	    },
 	    
 	    buildRewardRow: function() {
-	      // build top level row showing reward levels
 	      var $el = this.$el,
 	          referralTrackerRewards = new RtDomBuilder.rewardLevelsContainer({
 	            rewardLevelNodes: this.rewardLevelNodes.html
@@ -90,6 +94,12 @@
 	    
 	    buildPrizeRow: function() {
 	      // build prize divs showing
+	      var $el = this.$el,
+	          prizeRow = new RtDomBuilder.prizeRow({
+	            prizeNodes: this.prizeNodes.html
+	          });
+	      $el.append(prizeRow.html);
+	      $el.find('.reward-level-prize:first').addClass(this.rewardLevelNodes.offsetClass);
 	    },
 	    
 	    _offsetClass: function(rewardLevels) {
@@ -149,6 +159,10 @@
 /***/ function(module, exports) {
 
 	var RtDomBuilder = function() {
+	  
+	  // Must return an object with an html property.
+	  //
+	  
 	  this.rewardLevel = function(opts) {
 	    var opts = opts || {};
 	    var level = $('<div class="' + opts.rewardClass + ' reward-level reward-level-' + opts.index + '"></div>');
@@ -162,6 +176,20 @@
 	        elemHtml += opts.rewardLevelNodes;
 	        elemHtml += '</div>';
 	    this.html = elemHtml;
+	  }
+	  
+	  this.prizeRow = function(opts) {
+	    var opts = opts || {prizeNodes: ''},
+	        elemHtml = '<div class="row referral-tracker-prizes" style="text-align: left">';
+	        elemHtml += opts.prizeNodes;
+	        elemHtml += '</div>';
+	    this.html = elemHtml;
+	  }
+	  
+	  this.prize = function(opts) {
+	    var opts = opts || {};
+	    var prizeLevel = $('<div class="' + opts.prizeClass + ' reward-level-prize reward-level-' + opts.index + '">' + opts.prizes[opts.index] + '</div>');
+	    this.html = prizeLevel.wrap('<p/>').parent().html();
 	  }
 	};
 
