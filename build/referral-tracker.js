@@ -166,12 +166,12 @@
 	    this.html = prizeLevel.wrap('<p/>').parent().html();
 	  }
 	  
-	  this.collection = function(Obj, collection, opts) {
-	    var opts = opts || {},
+	  this.collection = function(Obj, collection, data) {
+	    var data = data || {},
 	        html = '';
 	    for(var i = 0; i < collection.length; i++) {
-	      opts.index = i;
-	      html += new Obj(opts).html;
+	      data.index = i;
+	      html += new Obj(data).html;
 	    }
 	    this.html = html;
 	  }
