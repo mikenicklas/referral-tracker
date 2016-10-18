@@ -19,22 +19,16 @@
       var rewardLevels = this.trackerOpts.rewardLevels,
           prizes = this.trackerOpts.prizes,
           rewardClass = this._rewardClass(rewardLevels.length),
-          
-          rewardHtml = this._buildCollection(RtDomBuilder.rewardLevel, rewardLevels, {
-                          rewardClass: rewardClass,
-                          rewardLevels: rewardLevels}),
-                          
-          prizeHtml = this._buildCollection(RtDomBuilder.prize, prizes, {
-            prizeClass: rewardClass,
-            prizes: prizes
-          });
-      this.rewardLevelNodes = {
-        html: rewardHtml,
-        offsetClass: this._offsetClass(rewardLevels.length)
-      };
-      this.prizeNodes = {
-        html: prizeHtml
-      }
+          offsetClass = this._offsetClass(rewardLevels.length),
+          Builder = RtDomBuilder.collection,
+          rewardHtml = new Builder(RtDomBuilder.rewardLevel, rewardLevels, {
+                                    rewardClass: rewardClass,
+                                    rewardLevels: rewardLevels}),
+          prizeHtml = new Builder(RtDomBuilder.prize, prizes, {
+                                  prizeClass: rewardClass,
+                                  prizes: prizes});
+      this._set('rewardLevelNodes', {html: rewardHtml.html, offsetclass: offsetClass});
+      this._set('prizeNodes', {html: prizeHtml.html});
     },
     
     buildRewardRow: function() {
@@ -83,14 +77,8 @@
       return rewardClass;
     },
     
-    _buildCollection: function(Obj, collection, opts) {
-      var opts = opts || {},
-          html = '';
-      for(var i = 0; i < collection.length; i++) {
-        opts.index = i;
-        html += new Obj(opts).html;
-      }
-      return html;
+    _set: function(attr, obj) {
+      this[attr] = obj;
     }
   }
   

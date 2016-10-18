@@ -31,6 +31,16 @@ var RtDomBuilder = function() {
     var prizeLevel = $('<div class="' + opts.prizeClass + ' reward-level-prize reward-level-' + opts.index + '">' + opts.prizes[opts.index] + '</div>');
     this.html = prizeLevel.wrap('<p/>').parent().html();
   }
+  
+  this.collection = function(Obj, collection, opts) {
+    var opts = opts || {},
+        html = '';
+    for(var i = 0; i < collection.length; i++) {
+      opts.index = i;
+      html += new Obj(opts).html;
+    }
+    this.html = html;
+  }
 };
 
 module.exports = new RtDomBuilder();
