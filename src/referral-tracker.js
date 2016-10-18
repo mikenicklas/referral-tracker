@@ -17,39 +17,47 @@
     },
     
     setupTrackerData: function() {
-      var rewardLevels = this.trackerOpts.rewardLevels,
-          prizes = this.trackerOpts.prizes,
-          rewardClass = rtClasses.reward(rewardLevels.length),
-          offsetClass = rtClasses.offset(rewardLevels.length),
-          Builder = RtDomBuilder.collection,
-          rewardHtml = new Builder(RtDomBuilder.rewardLevel, rewardLevels, {
-                                    rewardClass: rewardClass,
-                                    rewardLevels: rewardLevels}),
-          prizeHtml = new Builder(RtDomBuilder.prize, prizes, {
-                                  prizeClass: rewardClass,
-                                  prizes: prizes});
-      this._set('rewardLevelNodes', {html: rewardHtml.html, offsetclass: offsetClass});
-      this._set('prizeNodes', {html: prizeHtml.html});
+      var rewardLevels = this.trackerOpts.rewardLevels;
+      this._set('rtData', {
+        rewardLevels: rewardLevels,
+        prizes: this.trackerOpts.prizes,
+        rewardClass: rtClasses.reward(rewardLevels.length),
+        offsetClass: rtClasses.offset(rewardLevels.length)
+      });          
     },
     
     buildRewardRow: function() {
       var $el = this.$el,
-          Builder = RtDomBuilder.rewardLevelsContainer;
-          referralTrackerRewards = new Builder({rewardLevelNodes: this.rewardLevelNodes.html});
+          rewardCollection = new RtDomBuilder.collection(RtDomBuilder.rewardLevel, this._get('rewardLevels'), {
+                                    rewardClass: this._get('rewardClass'),
+                                    rewardLevels: this._get('rewardLevels')}),
+          Builder = RtDomBuilder.rewardLevelsContainer,
+          referralTrackerRewards = new Builder({rewardLevelNodes: rewardCollection.html});
       $el.html(referralTrackerRewards.html);
-      $el.find('.reward-level:first').addClass(this.rewardLevelNodes.offsetClass);
+      $el.find('.reward-level:first').addClass(this._get('offsetClass'));
     },
     
     buildPrizeRow: function() {
       var $el = this.$el,
+          prizeCollection = new RtDomBuilder.collection(RtDomBuilder.prize, this._get('prizes'), {
+                                  prizeClass: this._get('rewardClass'),
+                                  prizes: this._get('prizes')}),
           Builder = RtDomBuilder.prizeRow,
-          prizeRow = new Builder({prizeNodes: this.prizeNodes.html});
+          prizeRow = new Builder({prizeNodes: prizeCollection.html});
       $el.append(prizeRow.html);
-      $el.find('.reward-level-prize:first').addClass(this.rewardLevelNodes.offsetClass);
+      $el.find('.reward-level-prize:first').addClass(this._get('offsetClass'));
     },
     
     _set: function(attr, obj) {
       this[attr] = obj;
+    },
+    
+    _get: function (attr) {
+      try {
+        return this.rtData[attr];
+      } catch (err) {
+        return '';
+      }
     }
   }
   
