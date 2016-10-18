@@ -56,6 +56,7 @@
 	      this.setupTrackerData();
 	      this.buildRewardRow();
 	      this.buildPrizeRow();
+	      // Setup mobile version?
 	    },
 	    
 	    setupTrackerData: function() {
@@ -72,8 +73,10 @@
 	        level.append('<span class="reward-level-text">' + rewardLevels[i] + '</span>')
 	        rewardHtml += level.wrap('<p/>').parent().html();
 	      }
-	      this.rewardLevelNodes = {html: rewardHtml,
-	                                offsetClass: this._offsetClass(rewardLevels.length)};
+	      this.rewardLevelNodes = {
+	        html: rewardHtml,
+	        offsetClass: this._offsetClass(rewardLevels.length)
+	      };
 	    },
 	    
 	    buildRewardRow: function() {
