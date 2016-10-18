@@ -1,5 +1,6 @@
 ;(function($) {
-  var RtDomBuilder = require('./rt-dom-builder.js');
+  var RtDomBuilder = require('./rt-dom-builder.js'),
+      rtClasses = require('./rt-classes.js');
 
   var ReferralTracker = function(el, trackerOpts) {
     this.trackerOpts = trackerOpts || {},
@@ -18,8 +19,8 @@
     setupTrackerData: function() {
       var rewardLevels = this.trackerOpts.rewardLevels,
           prizes = this.trackerOpts.prizes,
-          rewardClass = this._rewardClass(rewardLevels.length),
-          offsetClass = this._offsetClass(rewardLevels.length),
+          rewardClass = rtClasses.reward(rewardLevels.length),
+          offsetClass = rtClasses.offset(rewardLevels.length),
           Builder = RtDomBuilder.collection,
           rewardHtml = new Builder(RtDomBuilder.rewardLevel, rewardLevels, {
                                     rewardClass: rewardClass,
@@ -45,36 +46,6 @@
           prizeRow = new Builder({prizeNodes: this.prizeNodes.html});
       $el.append(prizeRow.html);
       $el.find('.reward-level-prize:first').addClass(this.rewardLevelNodes.offsetClass);
-    },
-    
-    _offsetClass: function(rewardLevels) {
-      var levels = parseInt(rewardLevels);
-      if(levels === 5) {
-        return 'col-sm-offset-1';
-      } else {
-        return 'col-sm-offset-0';
-      }
-    },
-    
-    _rewardClass: function(rewardLevels) {
-      var rewardClass;
-      switch(rewardLevels) {
-        case 2:
-          rewardClass = 'col-sm-6';
-          break;
-        case 3:
-          rewardClass = 'col-sm-4';
-          break;
-        case 4:
-          rewardClass = 'col-sm-3';
-          break;
-        case 5:
-          rewardClass = 'col-sm-2';
-          break;
-        default:
-          throw 'You must provide between 2-5 Reward Levels.';
-      }
-      return rewardClass;
     },
     
     _set: function(attr, obj) {
