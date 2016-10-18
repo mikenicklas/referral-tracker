@@ -7,7 +7,7 @@ var RtDomBuilder = function() {
     var opts = opts || {};
     var level = $('<div class="' + opts.rewardClass + ' reward-level reward-level-' + opts.index + '"></div>');
     level.append('<span class="reward-level-text">' + opts.rewardLevels[opts.index] + '</span>')
-    this.html = level.wrap('<p/>').parent().html();
+    this.html = level.wrap('<div>').parent().html();
   };
   
   this.rewardLevelsContainer = function(opts) {
@@ -29,7 +29,7 @@ var RtDomBuilder = function() {
   this.prize = function(opts) {
     var opts = opts || {};
     var prizeLevel = $('<div class="' + opts.prizeClass + ' reward-level-prize reward-level-' + opts.index + '">' + opts.prizes[opts.index] + '</div>');
-    this.html = prizeLevel.wrap('<p/>').parent().html();
+    this.html = prizeLevel.wrap('<div>').parent().html();
   }
   
   this.collection = function(Obj, collection, data) {
