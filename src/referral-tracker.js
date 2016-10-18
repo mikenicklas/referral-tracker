@@ -1,4 +1,6 @@
 ;(function($) {
+  var RtDomBuilder = require('./rt-dom-builder.js');
+
   var ReferralTracker = function(el, trackerOpts) {
     this.trackerOpts = trackerOpts || {},
     this.$el = $(el);
@@ -23,9 +25,12 @@
           rewardClass = this._rewardClass(rewardLevels.length),
           rewardHtml = '';
       for(var i = 0; i < rewardLevels.length; i++) {
-        var level = $('<div class="' + rewardClass + ' reward-level reward-level-' + i + '"></div>');
-        level.append('<span class="reward-level-text">' + rewardLevels[i] + '</span>')
-        rewardHtml += level.wrap('<p/>').parent().html();
+        var level = new RtDomBuilder.rewardLevel({
+          rewardClass: rewardClass,
+          rewardNumber: i,
+          rewardLevel: rewardLevels[i]
+        });
+        rewardHtml += level.html;
       }
       this.rewardLevelNodes = {
         html: rewardHtml,
@@ -35,13 +40,12 @@
     
     buildRewardRow: function() {
       // build top level row showing reward levels
-      var $el = this.$el;
-      $el.prepend('<div class="row referral-tracker-rewards" style="text-align: left"></div>');
-      $el.find('.row.referral-tracker-rewards')
-        .html(this.rewardLevelNodes.html)
-        .find('.reward-level')
-        .first()
-        .addClass(this.rewardLevelNodes.offsetClass)
+      var $el = this.$el,
+          referralTrackerRewards = new RtDomBuilder.rewardLevelsContainer({
+            rewardLevelNodes: this.rewardLevelNodes.html
+          });
+      $el.html(referralTrackerRewards.html);
+      $el.find('.reward-level:first').addClass(this.rewardLevelNodes.offsetClass);
     },
     
     buildPrizeRow: function() {
