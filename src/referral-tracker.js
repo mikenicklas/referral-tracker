@@ -39,19 +39,16 @@
     
     buildRewardRow: function() {
       var $el = this.$el,
-          referralTrackerRewards = new RtDomBuilder.rewardLevelsContainer({
-            rewardLevelNodes: this.rewardLevelNodes.html
-          });
+          Builder = RtDomBuilder.rewardLevelsContainer;
+          referralTrackerRewards = new Builder({rewardLevelNodes: this.rewardLevelNodes.html});
       $el.html(referralTrackerRewards.html);
       $el.find('.reward-level:first').addClass(this.rewardLevelNodes.offsetClass);
     },
     
     buildPrizeRow: function() {
-      // build prize divs showing
       var $el = this.$el,
-          prizeRow = new RtDomBuilder.prizeRow({
-            prizeNodes: this.prizeNodes.html
-          });
+          Builder = RtDomBuilder.prizeRow,
+          prizeRow = new Builder({prizeNodes: this.prizeNodes.html});
       $el.append(prizeRow.html);
       $el.find('.reward-level-prize:first').addClass(this.rewardLevelNodes.offsetClass);
     },
@@ -62,7 +59,7 @@
         return 'col-sm-offset-1';
       } else {
         return 'col-sm-offset-0';
-      }    
+      }
     },
     
     _rewardClass: function(rewardLevels) {
