@@ -1,6 +1,7 @@
 ;(function($) {
   var RtDomBuilder = require('./rt-dom-builder.js'),
-      rtClasses = require('./rt-classes.js');
+      rtClasses = require('./rt-classes.js'),
+      styles = require('./styles.scss');
 
   var ReferralTracker = function(el, trackerOpts) {
     this.trackerOpts = trackerOpts || {},
