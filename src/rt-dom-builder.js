@@ -1,8 +1,8 @@
 var RtDomBuilder = function() {
   this.rewardLevel = function(opts) {
     var opts = opts || {};
-    var level = $('<div class="' + opts.rewardClass + ' reward-level reward-level-' + opts.rewardNumber + '"></div>');
-    level.append('<span class="reward-level-text">' + opts.rewardLevel + '</span>')
+    var level = $('<div class="' + opts.rewardClass + ' reward-level reward-level-' + opts.index + '"></div>');
+    level.append('<span class="reward-level-text">' + opts.rewardLevels[opts.index] + '</span>')
     this.html = level.wrap('<p/>').parent().html();
   };
   

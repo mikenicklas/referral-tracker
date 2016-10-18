@@ -23,15 +23,9 @@
       //
       var rewardLevels = this.trackerOpts.rewardLevels,
           rewardClass = this._rewardClass(rewardLevels.length),
-          rewardHtml = '';
-      for(var i = 0; i < rewardLevels.length; i++) {
-        var level = new RtDomBuilder.rewardLevel({
-          rewardClass: rewardClass,
-          rewardNumber: i,
-          rewardLevel: rewardLevels[i]
-        });
-        rewardHtml += level.html;
-      }
+          rewardHtml = this._buildCollection(RtDomBuilder.rewardLevel, rewardLevels, {
+                          rewardClass: rewardClass,
+                          rewardLevels: rewardLevels});
       this.rewardLevelNodes = {
         html: rewardHtml,
         offsetClass: this._offsetClass(rewardLevels.length)
@@ -80,6 +74,16 @@
           throw 'You must provide between 2-5 Reward Levels.';
       }
       return rewardClass;
+    },
+    
+    _buildCollection: function(Obj, collection, opts) {
+      var opts = opts || {},
+          html = '';
+      for(var i = 0; i < collection.length; i++) {
+        opts.index = i;
+        html += new Obj(opts).html;
+      }
+      return html;
     }
   }
   
