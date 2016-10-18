@@ -25,29 +25,37 @@
         prizes: this.trackerOpts.prizes,
         rewardClass: rtClasses.reward(rewardLevels.length),
         offsetClass: rtClasses.offset(rewardLevels.length)
-      });          
+      });
     },
     
     buildRewardRow: function() {
       var $el = this.$el,
-          rewardCollection = new RtDomBuilder.collection(RtDomBuilder.rewardLevel, this._get('rewardLevels'), {
-                                    rewardClass: this._get('rewardClass'),
-                                    rewardLevels: this._get('rewardLevels')}),
-          Builder = RtDomBuilder.rewardLevelsContainer,
-          referralTrackerRewards = new Builder({rewardLevelNodes: rewardCollection.html});
+          rewardCollection = this.buildRewardCollection(),
+          referralTrackerRewards = new RtDomBuilder.rewardLevelsContainer({rewardLevelNodes: rewardCollection.html});
       $el.html(referralTrackerRewards.html);
       $el.find('.reward-level:first').addClass(this._get('offsetClass'));
     },
     
     buildPrizeRow: function() {
       var $el = this.$el,
-          prizeCollection = new RtDomBuilder.collection(RtDomBuilder.prize, this._get('prizes'), {
-                                  prizeClass: this._get('rewardClass'),
-                                  prizes: this._get('prizes')}),
-          Builder = RtDomBuilder.prizeRow,
-          prizeRow = new Builder({prizeNodes: prizeCollection.html});
+          prizeCollection = this.buildPrizeCollection(),
+          prizeRow = new RtDomBuilder.prizeRow({prizeNodes: prizeCollection.html});
       $el.append(prizeRow.html);
       $el.find('.reward-level-prize:first').addClass(this._get('offsetClass'));
+    },
+    
+    buildRewardCollection: function() {
+      var collection = new RtDomBuilder.collection(RtDomBuilder.rewardLevel, this._get('rewardLevels'), {
+                                rewardClass: this._get('rewardClass'),
+                                rewardLevels: this._get('rewardLevels')});
+      return collection;
+    },
+    
+    buildPrizeCollection: function() {
+      var collection = new RtDomBuilder.collection(RtDomBuilder.prize, this._get('prizes'), {
+                              prizeClass: this._get('rewardClass'),
+                              prizes: this._get('prizes')});
+      return collection;
     },
     
     _set: function(attr, obj) {
