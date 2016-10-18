@@ -11,6 +11,7 @@
   
   ReferralTracker.prototype = {
     createTracker: function() {
+      this.$el.addClass('row');
       this.setupTrackerData();
       this.buildRewardRow();
       this.buildPrizeRow();

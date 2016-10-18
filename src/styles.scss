@@ -17,3 +17,9 @@
   background-color: red; // TODO: needs to be editable
   color: white; // TODO: needs to be editable
 }
+
+@media screen and(max-width: 767px) {
+  .referral-tracker-prizes {
+    margin: 20px auto;
+  }
+}

@@ -57,6 +57,7 @@
 	  
 	  ReferralTracker.prototype = {
 	    createTracker: function() {
+	      this.$el.addClass('row');
 	      this.setupTrackerData();
 	      this.buildRewardRow();
 	      this.buildPrizeRow();
@@ -137,7 +138,7 @@
 	  
 	  this.rewardLevelsContainer = function(opts) {
 	    var opts = opts || {rewardLevelNodes: ''},
-	        elemHtml = '<div class="row referral-tracker-rewards" style="text-align: left">';
+	        elemHtml = '<div class="col-sm-12 col-xs-3 referral-tracker-rewards" style="text-align: left">';
 	        elemHtml += opts.rewardLevelNodes;
 	        elemHtml += '</div>';
 	    this.html = elemHtml;
@@ -145,7 +146,7 @@
 	  
 	  this.prizeRow = function(opts) {
 	    var opts = opts || {prizeNodes: ''},
-	        elemHtml = '<div class="row referral-tracker-prizes" style="text-align: left">';
+	        elemHtml = '<div class="col-sm-12 col-xs-9 referral-tracker-prizes" style="text-align: left">';
 	        elemHtml += opts.prizeNodes;
 	        elemHtml += '</div>';
 	    this.html = elemHtml;
@@ -246,7 +247,7 @@
 
 
 	// module
-	exports.push([module.id, ".referral-tracker-rewards {\n  margin: 20px auto; }\n  .referral-tracker-rewards .reward-level-text {\n    font-size: 18px;\n    width: 50px;\n    height: 50px;\n    border-radius: 100px;\n    display: inline-block;\n    background-color: #e5e5e5;\n    color: #333;\n    text-align: center;\n    line-height: 50px; }\n\n.reward-earned {\n  background-color: red;\n  color: white; }\n", ""]);
+	exports.push([module.id, ".referral-tracker-rewards {\n  margin: 20px auto; }\n  .referral-tracker-rewards .reward-level-text {\n    font-size: 18px;\n    width: 50px;\n    height: 50px;\n    border-radius: 100px;\n    display: inline-block;\n    background-color: #e5e5e5;\n    color: #333;\n    text-align: center;\n    line-height: 50px; }\n\n.reward-earned {\n  background-color: red;\n  color: white; }\n\n@media screen and (max-width: 767px) {\n  .referral-tracker-prizes {\n    margin: 20px auto; } }\n", ""]);
 
 	// exports
 

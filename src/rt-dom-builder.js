@@ -12,7 +12,7 @@ var RtDomBuilder = function() {
   
   this.rewardLevelsContainer = function(opts) {
     var opts = opts || {rewardLevelNodes: ''},
-        elemHtml = '<div class="row referral-tracker-rewards" style="text-align: left">';
+        elemHtml = '<div class="col-sm-12 col-xs-3 referral-tracker-rewards" style="text-align: left">';
         elemHtml += opts.rewardLevelNodes;
         elemHtml += '</div>';
     this.html = elemHtml;
@@ -20,7 +20,7 @@ var RtDomBuilder = function() {
   
   this.prizeRow = function(opts) {
     var opts = opts || {prizeNodes: ''},
-        elemHtml = '<div class="row referral-tracker-prizes" style="text-align: left">';
+        elemHtml = '<div class="col-sm-12 col-xs-9 referral-tracker-prizes" style="text-align: left">';
         elemHtml += opts.prizeNodes;
         elemHtml += '</div>';
     this.html = elemHtml;
